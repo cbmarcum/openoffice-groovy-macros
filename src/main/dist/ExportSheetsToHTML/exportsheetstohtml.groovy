@@ -44,32 +44,29 @@ import org.openoffice.guno.UnoExtension
 
 // the Groovy UNO Extension
 
-//get the document object from the scripting context
+//get the document model from the scripting context
+// if we're in a document this should be an XModel
 XModel xModel = XSCRIPTCONTEXT.getDocument()
 
 //get the XSpreadsheetDocument interface from the document
-// xSDoc = UnoRuntime.queryInterface(XSpreadsheetDocument, xModel)
 xSDoc = xModel.guno(XSpreadsheetDocument.class)
 
 //get the XModel interface from the document
 // xModel = UnoRuntime.queryInterface(XModel,xModel);
 
-//get the XIndexAccess interface used to access each sheet 
-// xSheetsIndexAccess = UnoRuntime.queryInterface(XIndexAccess, xSDoc.getSheets())
+//get the XIndexAccess interface used to access each sheet
 xSheetsIndexAccess = xSDoc.getSheets().guno(XIndexAccess.class)
 
 //get the XStorable interface used to save the document
-// xStorable = UnoRuntime.queryInterface(XStorable,xSDoc);
 xStorable = xSDoc.guno(XStorable.class)
 
 //get the XModifiable interface used to indicate if the document has been 
 //changed
-// xModifiable = UnoRuntime.queryInterface(XModifiable,xSDoc);
 xModifiable = xSDoc.guno(XModifiable.class)
 
 //set up an array of PropertyValue objects used to save each sheet in the 
 //document
-PropertyValue[] storeProps = new PropertyValue[1] //PropertyValue[1]
+PropertyValue[] storeProps = new PropertyValue[1]
 storeProps[0] = new PropertyValue()
 storeProps[0].Name = "FilterName"
 storeProps[0].Value = "HTML (StarCalc)"
@@ -80,7 +77,8 @@ storeUrl = storeUrl.substring(0, storeUrl.lastIndexOf('.'))
 for (int i = 0; i < xSheetsIndexAccess.getCount(); i++ ) {
     setAllButOneHidden(xSheetsIndexAccess, i)
     xModifiable.setModified(false)
-    xStorable.storeToURL(storeUrl + "_sheet" + (i + 1) + ".html", storeProps)
+    // xStorable.storeToURL(storeUrl + "_sheet" + (i + 1) + ".html", storeProps)
+    xStorable.storeToURL("${storeUrl}_sheet${i+1}.html", storeProps) // groovier
 }
 
 // now set all visible again
