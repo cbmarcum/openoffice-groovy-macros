@@ -87,7 +87,7 @@ for (int i = 0; i < xSheetsIndexAccess.getCount(); i++ ) {
     xPropSet.setPropertyValue("IsVisible", true)
 }
 
-static void setAllButOneHidden(xSheetsIndexAccess, vis) {
+static void setAllButOneHidden(XSheetsIndexAccess xSheetsIndexAccess, Integer vis) {
     //System.err.println("count="+xSheetsIndexAccess.getCount())
     //get an XPropertySet interface for the vis-th sheet
     XPropertySet xPropSet = AnyConverter.toObject(new Type(XPropertySet), xSheetsIndexAccess.getByIndex(vis))
