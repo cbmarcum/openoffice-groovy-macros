@@ -1,4 +1,4 @@
-/**************************************************************
+/* ************************************************************
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -17,12 +17,14 @@
  * specific language governing permissions and limitations
  * under the License.
  *
- *************************************************************/
+ *********************************************************** */
 
-// capitalise.groovy
-// Change the case of a selection, or current word from upper case,
-// to first char upper case, to all lower case to upper case...
-// derived from capitalise.bsh
+/*
+ * capitalise.groovy
+ * Change the case of a selection, or current word from upper case,
+ * to first char upper case, to all lower case to upper case...
+ * derived from capitalise.bsh
+ */
 
 import com.sun.star.frame.XModel
 import com.sun.star.frame.XController
