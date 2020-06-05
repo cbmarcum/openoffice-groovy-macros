@@ -49,20 +49,20 @@ import org.openoffice.guno.UnoExtension
 XModel xModel = XSCRIPTCONTEXT.getDocument()
 
 //get the XSpreadsheetDocument interface from the document
-xSDoc = xModel.guno(XSpreadsheetDocument.class)
+XSpreadsheetDocument xSDoc = xModel.guno(XSpreadsheetDocument.class)
 
 //get the XModel interface from the document
 // xModel = UnoRuntime.queryInterface(XModel,xModel);
 
 //get the XIndexAccess interface used to access each sheet
-xSheetsIndexAccess = xSDoc.getSheets().guno(XIndexAccess.class)
+XIndexAccess xSheetsIndexAccess = xSDoc.getSheets().guno(XIndexAccess.class)
 
 //get the XStorable interface used to save the document
-xStorable = xSDoc.guno(XStorable.class)
+XStorable xStorable = xSDoc.guno(XStorable.class)
 
 //get the XModifiable interface used to indicate if the document has been 
 //changed
-xModifiable = xSDoc.guno(XModifiable.class)
+XModifiable xModifiable = xSDoc.guno(XModifiable.class)
 
 //set up an array of PropertyValue objects used to save each sheet in the 
 //document
@@ -70,7 +70,7 @@ PropertyValue[] storeProps = new PropertyValue[1]
 storeProps[0] = new PropertyValue()
 storeProps[0].Name = "FilterName"
 storeProps[0].Value = "HTML (StarCalc)"
-storeUrl = xModel.getURL()
+String storeUrl = xModel.getURL()
 storeUrl = storeUrl.substring(0, storeUrl.lastIndexOf('.'))
 
 //set only one sheet visible, and store to HTML doc
@@ -87,7 +87,7 @@ for (int i = 0; i < xSheetsIndexAccess.getCount(); i++ ) {
     xPropSet.setPropertyValue("IsVisible", true)
 }
 
-static void setAllButOneHidden(XSheetsIndexAccess xSheetsIndexAccess, Integer vis) {
+static void setAllButOneHidden(XIndexAccess xSheetsIndexAccess, Integer vis) {
     //System.err.println("count="+xSheetsIndexAccess.getCount())
     //get an XPropertySet interface for the vis-th sheet
     XPropertySet xPropSet = AnyConverter.toObject(new Type(XPropertySet), xSheetsIndexAccess.getByIndex(vis))
