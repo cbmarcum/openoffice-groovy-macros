@@ -38,7 +38,7 @@ Integer infoButtons = MessageBoxButtons.BUTTONS_OK
 XMessageBox infoBox = xContext.getMessageBox(MessageBoxType.INFOBOX, infoButtons, infoMsg)
 short infoBoxResult = infoBox.execute()
 
-String warnMsg = "This is a warning mesage...\nYou should be careful."
+String warnMsg = "This is a warning message...\nYou should be careful."
 Integer warnButtons = MessageBoxButtons.BUTTONS_OK_CANCEL + MessageBoxButtons.DEFAULT_BUTTON_OK
 XMessageBox warningBox = xContext.getMessageBox(MessageBoxType.WARNINGBOX, warnButtons, warnMsg, "Warning Title")
 short warnBoxResult = warningBox.execute()
