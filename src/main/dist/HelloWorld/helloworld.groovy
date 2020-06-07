@@ -29,7 +29,9 @@ import com.sun.star.frame.XModel
 import com.sun.star.text.XText
 import com.sun.star.text.XTextDocument
 import com.sun.star.text.XTextRange
-import org.openoffice.guno.UnoExtension // the Groovy UNO Extension
+
+// the Groovy UNO Extension
+import org.openoffice.guno.UnoExtension
 
 // set the output text string
 String output = "Hello World (in Groovy)"
@@ -47,7 +49,7 @@ XText xText = xTextDoc.getText()
 XTextRange xTextRange = xText.getEnd()
 
 // sets the text of the text range
-xTextRange.setString( output )
+xTextRange.setString(output)
 
 // Groovy OpenOffice scripts should always return 0
 return 0
