@@ -1,0 +1,1 @@
+Groovy Macros for OpenOffice is an extension to add Apache Groovy language macros to Apache OpenOffice.
