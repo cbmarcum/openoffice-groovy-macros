@@ -17,15 +17,13 @@
  *
  ***********************************************************************-->
 
-
-
 <description xmlns="http://openoffice.org/extensions/description/2006"
              xmlns:d="http://openoffice.org/extensions/description/2006"
              xmlns:xlink="http://www.w3.org/1999/xlink">
 
     <version value="${project.version}"/>
 
-    <identifier value="net.codebuilders.openoffice-groovy"/>
+    <identifier value="net.codebuilders.openoffice-groovy-macros"/>
 
     <platform value="all"/>
 
