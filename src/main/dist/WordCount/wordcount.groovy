@@ -42,6 +42,22 @@ import com.sun.star.script.provider.XScriptContext
 // the Groovy UNO Extension
 import org.openoffice.guno.UnoExtension
 
+// The XSCRIPTCONTEXT variable is of type XScriptContext and is available to
+// all Groovy scripts executed by the Script Framework
+XModel xModel = XSCRIPTCONTEXT.getDocument()
+
+//the writer controller impl supports the css.view.XSelectionSupplier interface
+XSelectionSupplier xSelectionSupplier = xModel.getCurrentController().guno(XSelectionSupplier.class)
+
+//see section 7.5.1 of developers' guide
+// the getSelection provides an XIndexAccess to the one or more selections
+XIndexAccess xIndexAccess = xSelectionSupplier.getSelection().guno(XIndexAccess.class)
+
+Integer count = wordcount(xIndexAccess)
+println("count = " + count)
+
+// Groovy OpenOffice scripts should always return 0
+return 0
 
 // display the count in a Swing dialog
 void doDisplay(Integer numWords) {
@@ -83,20 +99,3 @@ Integer wordcount(XIndexAccess xIndexAccess) {
     doDisplay(result);
     return result;
 }
-
-// The XSCRIPTCONTEXT variable is of type XScriptContext and is available to
-// all Groovy scripts executed by the Script Framework
-XModel xModel = XSCRIPTCONTEXT.getDocument()
-
-//the writer controller impl supports the css.view.XSelectionSupplier interface
-XSelectionSupplier xSelectionSupplier = xModel.getCurrentController().guno(XSelectionSupplier.class)
-
-//see section 7.5.1 of developers' guide
-// the getSelection provides an XIndexAccess to the one or more selections
-XIndexAccess xIndexAccess = xSelectionSupplier.getSelection().guno(XIndexAccess.class)
-
-Integer count = wordcount(xIndexAccess)
-println("count = " + count)
-
-// Groovy OpenOffice scripts should always return 0
-return 0
