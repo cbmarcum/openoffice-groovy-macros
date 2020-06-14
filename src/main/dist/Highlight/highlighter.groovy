@@ -48,61 +48,6 @@ import org.openoffice.guno.UnoExtension
 @Field JTextField findTextBox = new JTextField(20)
 @Field JFrame frame = new JFrame("Highlight Text")
 
-Integer replaceText(String searchKey, Integer color, Boolean bold) {
-
-    Integer result = 0
-
-    try {
-        // Create an XReplaceable object and an XReplaceDescriptor
-        XReplaceable replaceable = xTextDocument.guno(XReplaceable.class)
-
-        XReplaceDescriptor descriptor = replaceable.createReplaceDescriptor()
-
-        // Gets a XPropertyReplace object for altering the properties
-        // of the replaced text
-        XPropertyReplace xPropertyReplace = descriptor.guno(XPropertyReplace.class)
-
-        // Sets the replaced text property fontweight value to Bold or Normal 
-        PropertyValue wv = null
-        if (bold) {
-            wv = new PropertyValue("CharWeight", -1,
-                new Float(com.sun.star.awt.FontWeight.BOLD),
-                com.sun.star.beans.PropertyState.DIRECT_VALUE)
-        }
-        else {
-            wv = new PropertyValue("CharWeight", -1,
-                new Float(com.sun.star.awt.FontWeight.NORMAL),
-                com.sun.star.beans.PropertyState.DIRECT_VALUE)
-        }
-
-        // Sets the replaced text property color value to RGB color parameter
-        PropertyValue cv = new PropertyValue("CharColor", -1, new Integer(color),
-            com.sun.star.beans.PropertyState.DIRECT_VALUE)
-
-        // Apply the properties
-        PropertyValue[] props = [cv, wv]
-        xPropertyReplace.setReplaceAttributes(props)
-
-        // Only matches whole words and case sensitive
-        descriptor.setPropertyValue("SearchCaseSensitive", new Boolean(true))
-        descriptor.setPropertyValue("SearchWords", new Boolean(true))
-
-        // Replaces all instances of searchKey with new Text properties
-        // and gets the number of instances of the searchKey 
-        descriptor.setSearchString(searchKey)
-        descriptor.setReplaceString(searchKey)
-        result = replaceable.replaceAll(descriptor)
-
-    }
-    catch (Exception e) {
-        println(e.toString())
-    }
-
-    return result
-}
-
-
-
 // Create a JButton and add an ActionListener
 // When clicked the value for the searchKey is read and passed to replaceText
 ActionListener myListener = new ActionListener() {
@@ -165,7 +110,7 @@ JLabel findWhat = new JLabel("Find What: ")
 searchPanel.add(findWhat)
 searchPanel.add(findTextBox)
 
-// dd a window listener to the frame
+// add a window listener to the frame
 frame.setSize(350,130)
 frame.setLocation(430,430)
 frame.setResizable(false)
@@ -175,3 +120,56 @@ frame.getContentPane().add(searchPanel)
 frame.getContentPane().add(buttonPanel)
 frame.setVisible(true)
 frame.pack()
+
+Integer replaceText(String searchKey, Integer color, Boolean bold) {
+
+    Integer result = 0
+
+    try {
+        // Create an XReplaceable object and an XReplaceDescriptor
+        XReplaceable replaceable = xTextDocument.guno(XReplaceable.class)
+
+        XReplaceDescriptor descriptor = replaceable.createReplaceDescriptor()
+
+        // Gets a XPropertyReplace object for altering the properties
+        // of the replaced text
+        XPropertyReplace xPropertyReplace = descriptor.guno(XPropertyReplace.class)
+
+        // Sets the replaced text property fontweight value to Bold or Normal
+        PropertyValue wv = null
+        if (bold) {
+            wv = new PropertyValue("CharWeight", -1,
+                    new Float(com.sun.star.awt.FontWeight.BOLD),
+                    com.sun.star.beans.PropertyState.DIRECT_VALUE)
+        }
+        else {
+            wv = new PropertyValue("CharWeight", -1,
+                    new Float(com.sun.star.awt.FontWeight.NORMAL),
+                    com.sun.star.beans.PropertyState.DIRECT_VALUE)
+        }
+
+        // Sets the replaced text property color value to RGB color parameter
+        PropertyValue cv = new PropertyValue("CharColor", -1, new Integer(color),
+                com.sun.star.beans.PropertyState.DIRECT_VALUE)
+
+        // Apply the properties
+        PropertyValue[] props = [cv, wv]
+        xPropertyReplace.setReplaceAttributes(props)
+
+        // Only matches whole words and case sensitive
+        descriptor.setPropertyValue("SearchCaseSensitive", new Boolean(true))
+        descriptor.setPropertyValue("SearchWords", new Boolean(true))
+
+        // Replaces all instances of searchKey with new Text properties
+        // and gets the number of instances of the searchKey
+        descriptor.setSearchString(searchKey)
+        descriptor.setReplaceString(searchKey)
+        result = replaceable.replaceAll(descriptor)
+
+    }
+    catch (Exception e) {
+        println(e.toString())
+    }
+
+    return result
+}
