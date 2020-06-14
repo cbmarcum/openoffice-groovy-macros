@@ -29,7 +29,6 @@
  * derived from exportsheetstohtml.js
  */
 
-import com.sun.star.uno.UnoRuntime
 import com.sun.star.sheet.XSpreadsheetDocument
 import com.sun.star.container.XIndexAccess
 import com.sun.star.beans.XPropertySet
@@ -87,7 +86,7 @@ for (int i = 0; i < xSheetsIndexAccess.getCount(); i++ ) {
     xPropSet.setPropertyValue("IsVisible", true)
 }
 
-static void setAllButOneHidden(XIndexAccess xSheetsIndexAccess, Integer vis) {
+void setAllButOneHidden(XIndexAccess xSheetsIndexAccess, Integer vis) {
     //System.err.println("count="+xSheetsIndexAccess.getCount())
     //get an XPropertySet interface for the vis-th sheet
     XPropertySet xPropSet = AnyConverter.toObject(new Type(XPropertySet), xSheetsIndexAccess.getByIndex(vis))
